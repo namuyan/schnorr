@@ -11,6 +11,7 @@ documentation = "https://docs.rs/schnorr"
 
 
 [dependencies]
+ed25519-dalek = { version =  "1.0.0-pre.1", features = ["serde"] }
 curve25519-dalek = { version =  "1.0.0-pre.0", features = ["serde"] }
 serde = "1.0"
 rand = "0.6"
@@ -27,9 +28,9 @@ harness = false
 
 [features]
 default = ["std", "u64_backend"]
-std = ["curve25519-dalek/std"]
-alloc = ["curve25519-dalek/alloc"]
-nightly = ["curve25519-dalek/nightly", "rand/nightly", "clear_on_drop/nightly"]
-u64_backend = ["curve25519-dalek/u64_backend"]
-u32_backend = ["curve25519-dalek/u32_backend"]
-avx2_backend = ["curve25519-dalek/avx2_backend"]
+std = ["ed25519-dalek/std"]
+alloc = ["ed25519-dalek/alloc"]
+nightly = ["ed25519-dalek/nightly", "rand/nightly", "clear_on_drop/nightly"]
+u64_backend = ["ed25519-dalek/u64_backend"]
+u32_backend = ["ed25519-dalek/u32_backend"]
+avx2_backend = ["ed25519-dalek/avx2_backend"]

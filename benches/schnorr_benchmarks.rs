@@ -36,11 +36,10 @@ mod schnorr_benches {
     use schnorr::Signature;
     // use schnorr::verify_batch;
     use rand::thread_rng;
-    use rand::ThreadRng;
     use blake2::Blake2b;
 
     fn sign(c: &mut Criterion) {
-        let mut csprng: ThreadRng = thread_rng();
+        let mut csprng = thread_rng();
         let keypair: Keypair = Keypair::generate(&mut csprng);
         let msg: &[u8] = b"";
 
@@ -51,11 +50,11 @@ mod schnorr_benches {
 
 
     fn verify(c: &mut Criterion) {
-        let mut csprng: ThreadRng = thread_rng();
+        let mut csprng = thread_rng();
         let keypair: Keypair = Keypair::generate(&mut csprng);
         let msg: &[u8] = b"";
         let sig: Signature = keypair.sign::<Blake2b, _>(&mut csprng, msg);
-        
+
         c.bench_function("Schnorr signature verification", move |b| {
                          b.iter(| | keypair.verify::<Blake2b>(msg, &sig))
         });
@@ -81,7 +80,7 @@ mod schnorr_benches {
     // }
 
     fn key_generation(c: &mut Criterion) {
-        let mut csprng: ThreadRng = thread_rng();
+        let mut csprng = thread_rng();
 
         c.bench_function("Schnorr keypair generation", move |b| {
                          b.iter(| | Keypair::generate(&mut csprng))

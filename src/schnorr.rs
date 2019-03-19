@@ -55,7 +55,7 @@ pub const HASH_LENGTH: usize = 64;
 ///
 /// # Note
 ///
-/// These signatures are "detached"—that is, they do **not** include a copy 
+/// These signatures are "detached"—that is, they do **not** include a copy
 /// of the message which has been signed.
 #[allow(non_snake_case)]
 #[derive(Copy, Eq, PartialEq)]
@@ -296,7 +296,7 @@ impl SecretKey {
     // Sign a message with this `SecretKey`.
     #[allow(non_snake_case)]
     pub fn sign<D, T>(&self, csprng: &mut T, message: &[u8], public_key: &PublicKey) -> Signature
-        where D:  Digest<OutputSize = U64> + Default, T: CryptoRng + Rng, 
+        where D:  Digest<OutputSize = U64> + Default, T: CryptoRng + Rng,
     {
 
         //c = H(public_key, R, message)
@@ -305,7 +305,7 @@ impl SecretKey {
         let r: Scalar =  Scalar::random(csprng);
         //R = g^r
         let R: CompressedRistretto = (&r * &RISTRETTO_BASEPOINT_TABLE).compress();
-        
+
         //first we hash public key, makes it binding
         h.input(public_key.as_bytes());
         //second we hash in blinded randomness
@@ -390,7 +390,7 @@ impl PublicKey {
     /// # Warning
     ///
     /// The caller is responsible for ensuring that the bytes passed into this
-    /// method actually represent a `curve25519_dalek::curve::CompressedRistretto`
+    /// method actually represent a `ed25519_dalek::curve::CompressedRistretto`
     /// and that said compressed point is actually a point on the curve.
     ///
     /// # Example
@@ -506,7 +506,7 @@ impl PublicKey {
     }
 
     /// Helper Method to Get our public key as a curve point.
-    pub fn get_curve_point(&self) -> Result<RistrettoPoint, SchnorrError> { 
+    pub fn get_curve_point(&self) -> Result<RistrettoPoint, SchnorrError> {
         match self.0.decompress() {
             Some(x) => return Ok(x),
             None    => return Err(SchnorrError(InternalError::PointDecompressionError)),
@@ -515,7 +515,7 @@ impl PublicKey {
 
 }
 
-    
+
 
 impl Serialize for PublicKey {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer {
@@ -562,7 +562,7 @@ impl Keypair {
     ///
     /// An array of bytes, `[u8; KEYPAIR_LENGTH]`.  The first
     /// `SECRET_KEY_LENGTH` of bytes is the `SecretKey`, and the next
-    /// `PUBLIC_KEY_LENGTH` bytes is the `PublicKey` 
+    /// `PUBLIC_KEY_LENGTH` bytes is the `PublicKey`
     pub fn to_bytes(&self) -> [u8; KEYPAIR_LENGTH] {
         let mut bytes: [u8; KEYPAIR_LENGTH] = [0u8; KEYPAIR_LENGTH];
 
@@ -697,7 +697,7 @@ mod test {
     use rand::ChaChaRng;
     use rand::SeedableRng;
     use blake2::Blake2b;
-   
+
 
     #[test]
     fn sign_verify() {  // TestSignVerify

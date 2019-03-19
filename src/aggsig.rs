@@ -16,8 +16,8 @@
 //!
 //! See https://eprint.iacr.org/2018/068.pdf, https://eprint.iacr.org/2018/483.pdf subsection 5.1
 
-use curve25519_dalek::ristretto::{RistrettoPoint, CompressedRistretto};
-use curve25519_dalek::scalar::Scalar;
+use ed25519_dalek::ristretto::{RistrettoPoint, CompressedRistretto};
+use ed25519_dalek::scalar::Scalar;
 
 pub struct KeyAgg {
     pub apk: CompressedRistretto,

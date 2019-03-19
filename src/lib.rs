@@ -30,6 +30,7 @@
 //#![deny(missing_docs)] // refuse to compile if documentation is missing
 
 extern crate rand;
+extern crate ed25519_dalek;
 extern crate curve25519_dalek;
 extern crate serde;
 extern crate failure;
@@ -53,8 +54,8 @@ pub use errors::SchnorrError;
 // #[cfg(test)]
 // mod tests {
 //     use super::*;
-//     use curve25519_dalek::ristretto::RistrettoPoint;
-//     use curve25519_dalek::traits::Identity;
+//     use ed25519_dalek::ristretto::RistrettoPoint;
+//     use ed25519_dalek::traits::Identity;
 
 //     #[test]
 //     fn test_keys() {
@@ -62,7 +63,7 @@ pub use errors::SchnorrError;
 //         let sk = SecretKey(Scalar::zero());
 //         //generate our pk
 //         let pk = PublicKey::from_secret(&sk);
-        
+
 //         assert_eq!(pk.0, RistrettoPoint::identity().compress());
 //     }
 
